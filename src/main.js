@@ -5,25 +5,25 @@ import createCardFilm from './components/card-film';
 import createButtonShowMore from './components/show-more';
 import createPopupDescFilm from './components/popup';
 
-const render = (container, template, place) => {
-  container.insertAdjacentHTML(place, template);
-};
-
 const siteFilmsList = document.querySelector(`.films-list`);
 const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = document.querySelector(`.header`);
-
-render(siteFilmsList, createButtonShowMore(), `beforeend`);
-render(siteHeaderElement, createSearchTemplate(), `beforeend`);
-render(siteHeaderElement, createProfileTemplate(), `beforeend`);
-render(siteMainElement, createMenuTemplate(), `afterbegin`);
-render(siteMainElement, createPopupDescFilm(), `beforeend`);
-
+const amountCardsAllMovies = 5;
+const amountCardsTopRated = 2;
+const amountCardsMostCommented = 2;
 const cardListElement = document.querySelectorAll(`.films-list__container`)[0];
-new Array(5).fill(``).forEach(() => render(cardListElement, createCardFilm(), `beforeend`));
-
 const cardListTopRated = document.querySelectorAll(`.films-list__container`)[1];
-new Array(2).fill(``).forEach(() => render(cardListTopRated, createCardFilm(), `beforeend`));
-
 const cardListMostComment = document.querySelectorAll(`.films-list__container`)[2];
-new Array(2).fill(``).forEach(() => render(cardListMostComment, createCardFilm(), `beforeend`));
+
+const renderContent = () => {
+  siteHeaderElement.insertAdjacentHTML(`beforeend`, createSearchTemplate());
+  siteHeaderElement.insertAdjacentHTML(`beforeend`, createProfileTemplate());
+  siteMainElement.insertAdjacentHTML(`afterbegin`, createMenuTemplate());
+  siteMainElement.insertAdjacentHTML(`beforeend`, createPopupDescFilm());
+  siteFilmsList.insertAdjacentHTML(`beforeend`, createButtonShowMore());
+  new Array(amountCardsAllMovies).fill(``).forEach(() => cardListElement.insertAdjacentHTML(`beforeend`, createCardFilm()));
+  new Array(amountCardsTopRated).fill(``).forEach(() => cardListTopRated.insertAdjacentHTML(`beforeend`, createCardFilm()));
+  new Array(amountCardsMostCommented).fill(``).forEach(() => cardListMostComment.insertAdjacentHTML(`beforeend`, createCardFilm()));
+};
+
+renderContent();
