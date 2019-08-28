@@ -9,6 +9,7 @@ const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
 
+const siteFilmsList = document.querySelector(`.films-list`);
 const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = document.querySelector(`.header`);
 
