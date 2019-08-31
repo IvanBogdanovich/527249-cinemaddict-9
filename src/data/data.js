@@ -10,7 +10,7 @@ const getRandomStringOutOfArray = (array, maxLength) => {
   return [...Array(arrayLength)].map(() => getRandomArrayElement(array)).join(` `);
 };
 
-const getContentData = () => {
+export const getContentData = () => {
   return {
     description: getRandomStringOutOfArray([
       `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
