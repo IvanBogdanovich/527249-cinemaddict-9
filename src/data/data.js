@@ -2,7 +2,6 @@ export const AMOUNT_CARDS_ALL_MOVIES = 5;
 export const AMOUNT_CARDS_TOP_RATED = 2;
 export const AMOUNT_CARDS_MOST_COMMENTED = 2;
 
-
 const getRandomNumberInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const getRandomArrayElement = (array) => array[getRandomNumberInRange(0, array.length - 1)];
 
