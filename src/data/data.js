@@ -1,3 +1,0 @@
-export const AMOUNT_CARDS_ALL_MOVIES = 5;
-export const AMOUNT_CARDS_TOP_RATED = 2;
-export const AMOUNT_CARDS_MOST_COMMENTED = 2;
