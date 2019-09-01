@@ -1,15 +1,15 @@
 const createCardFilm = (data) => {
   return `<article class="film-card">
-  <h3 class="film-card__title">description</h3>
-  <p class="film-card__rating">8.3</p>
+  <h3 class="film-card__title">${data.title}</h3>
+  <p class="film-card__rating">${data.rating}</p>
   <p class="film-card__info">
-    <span class="film-card__year">1929</span>
-    <span class="film-card__duration">1h 55m</span>
-    <span class="film-card__genre">Musical</span>
+    <span class="film-card__year">${data.releaseDate}</span>
+    <span class="film-card__duration">${data.duration}</span>
+    <span class="film-card__genre">${data.genre}</span>
   </p>
-  <img src="./images/posters/the-dance-of-life.jpg" alt="" class="film-card__poster">
+  <img src="${data.poster}" alt="" class="film-card__poster">
   <p class="film-card__description">${data.description}</p>
-  <a class="film-card__comments">5 comments</a>
+  <a class="film-card__comments">${data.amountComments} comments</a>
   <form class="film-card__controls">
     <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist">Add to watchlist</button>
     <button class="film-card__controls-item button film-card__controls-item--mark-as-watched">Mark as watched</button>
