@@ -5,6 +5,4 @@ const createProfileTemplate = (data) => {
 </section>`;
 };
 
-export {
-  createProfileTemplate
-};
+export default createProfileTemplate;

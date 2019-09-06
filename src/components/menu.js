@@ -14,6 +14,4 @@ const createMenuTemplate = (count) => {
   </ul>`;
 };
 
-export {
-  createMenuTemplate
-};
+export default createMenuTemplate;

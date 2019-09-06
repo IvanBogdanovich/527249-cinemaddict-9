@@ -20,6 +20,4 @@ const createCardFilm = (data) => {
 </article>`;
 };
 
-export {
-  createCardFilm
-};
+export default createCardFilm;

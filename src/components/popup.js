@@ -129,6 +129,4 @@ const createPopupDescFilm = (data, hidden) => {
 </section>`;
 };
 
-export {
-  createPopupDescFilm
-};
+export default createPopupDescFilm;
