@@ -1,20 +1,108 @@
-export const AMOUNT_CARDS_WATCH_LIST_START = 5;
-export const AMOUNT_CARDS_WATCH_LIST = 17;
-export const AMOUNT_CARDS_TOP_RATED = 2;
-export const AMOUNT_CARDS_MOST_COMMENTED = 2;
-export const AMOUNT_FULL_FIMS = AMOUNT_CARDS_WATCH_LIST
- + AMOUNT_CARDS_TOP_RATED
- + AMOUNT_CARDS_MOST_COMMENTED;
+import {
+  getRandomBoolean,
+  getRandomArrayElement,
+  getRandomNumberInRange} from '../utils/utils';
 
-const getRandomNumberInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-const getRandomArrayElement = (array) => array[getRandomNumberInRange(0, array.length - 1)];
+const TITLES = [
+  `Iron Monkey`,
+  `Ran`,
+  `Farewell My Concubine`,
+  `Delicatessen`,
+  `Way of the Dragon`,
+  `Yeelen`,
+  `The Fourth Man`,
+  `Ghost in the Shell`,
+  `Goodbye Lenin`,
+  `Rififi`,
+  `Loves of a Blonde`,
+  `Leningrad Cowboys`,
+  `Andrei Rublev`,
+  `Run Lola Run`,
+];
 
-const getRandomStringOutOfArray = (array, maxLength) => {
-  const arrayLength = getRandomNumberInRange(1, maxLength);
-  return [...Array(arrayLength)].map(() => getRandomArrayElement(array)).join(` `);
-};
+const DIRECTORS = [
+  `Orson Welles`,
+  `Stanley Kubrick`,
+  `Charles Chaplin`,
+  `Billy Wilde`,
+  `Frank Capra`,
+  `Woody Allen`,
+  `Elia Kazan`,
+  `Quentin Tarantino`,
+];
 
-const listGenre = new Set([
+const WRITERS = [
+  `Asghar Farhadi`,
+  `Eric Roth`,
+  `Woody Allen`,
+  `Chang-dong Lee`,
+  `Richard Linklater`,
+  `Lars von Trier`,
+  `Quentin Tarantino`,
+  `Sion Sono`
+];
+
+const ACTORS = [
+  `Charles Chaplin`,
+  `Marlon Brando`,
+  `Jack Nicholson`,
+  `Daniel Day-Lewis`,
+  `Meryl Streep`,
+  `Tom Hanks`,
+  `Mohanlal`,
+  `Robert De Niro`,
+];
+
+const IMAGES = [
+  `made-for-each-other.png`,
+  `popeye-meets-sinbad.png`,
+  `sagebrush-trail.jpg`,
+  `santa-claus-conquers-the-martians.jpg`,
+  `the-dance-of-life.jpg`,
+  `the-great-flamarion.jpg`,
+  `the-man-with-the-golden-arm.jpg`,
+];
+
+const DESCRIPTIONS = [
+  `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
+  `Cras aliquet varius magna, non porta ligula feugiat eget.`,
+  `Fusce tristique felis at fermentum pharetra.`,
+  `Aliquam id orci ut lectus varius viverra.`,
+  `Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante.`,
+  `Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum.`,
+  `Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui.`,
+  `Sed sed nisi sed augue convallis suscipit in sed felis.`,
+  `Aliquam erat volutpat.`,
+  `Nunc fermentum tortor ac porta dapibus.`,
+  `In rutrum ac purus sit amet tempus.`,
+];
+
+const COUNTRIES = [
+  `USA`,
+  `France`,
+  `Ukraine`,
+  `USSR`,
+  `Russia`,
+];
+
+const EMOJIS = [
+  `angry.png`,
+  `puke.png`,
+  `sleeping.png`,
+  `smile.png`,
+  `trophy.png`
+];
+
+const COMMENTS = [
+  `Cool`,
+  `Booooooooooring`,
+  `Very very old. Meh`,
+  `Almost two hours? Seriously?`,
+  `Nice try`,
+  `Fantastic`,
+];
+
+const LIST_GENRE = new Set([
   `musical`,
   `comedy`,
   `action`,
@@ -26,101 +114,57 @@ const listGenre = new Set([
   `ganster`,
 ]);
 
-export const getMocksCardFilm = () => {
-  return {
-    poster: getRandomArrayElement([
-      `./images/posters/made-for-each-other.png`,
-      `./images/posters/popeye-meets-sinbad.png`,
-      `./images/posters/sagebrush-trail.jpg`,
-      `./images/posters/santa-claus-conquers-the-martians.jpg`,
-      `./images/posters/the-dance-of-life.jpg`,
-      `./images/posters/the-great-flamarion.jpg`,
-      `./images/posters/the-man-with-the-golden-arm.jpg`
-    ]),
-    title: getRandomStringOutOfArray([
-      `Iron Monkey`,
-      `Ran`,
-      `Farewell My Concubine`,
-      `Delicatessen`,
-      `Way of the Dragon`,
-      `Yeelen`,
-      `The Fourth Man`,
-      `Ghost in the Shell`,
-      `Goodbye Lenin`,
-      `Rififi`,
-      `Loves of a Blonde`,
-      `Leningrad Cowboys`,
-      `Andrei Rublev`,
-      `Run Lola Run`
-    ], 1),
-    description: getRandomStringOutOfArray([
-      `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
-      `Cras aliquet varius magna, non porta ligula feugiat eget.`,
-      `Fusce tristique felis at fermentum pharetra.`,
-      `Aliquam id orci ut lectus varius viverra.`,
-      `Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante.`,
-      `Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum.`,
-      `Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui.`,
-      `Sed sed nisi sed augue convallis suscipit in sed felis.`,
-      `Aliquam erat volutpat.`,
-      `Nunc fermentum tortor ac porta dapibus.`,
-      `In rutrum ac purus sit amet tempus.`,
-    ], 3),
-    rating: getRandomNumberInRange(1, 10) + (+Math.random().toFixed(1)),
-    releaseDate: getRandomStringOutOfArray([
-      `1920`,
-      `1976`,
-      `1929`,
-      `1989`,
-      `1999`,
-      `1976`,
-      `1965`,
-      `1954`,
-      `1943`
-    ], 1),
-    duration: getRandomStringOutOfArray([
-      `1h 55mm`,
-      `1h 33mm`,
-      `1h 43mm`,
-      `1h 20mm`,
-      `2h 00mm`,
-      `1h 59mm`,
-      `1h 12mm`,
-      `2h 15mm`,
-      `1h 23mm`
-    ], 1),
-    genre: (getRandomStringOutOfArray([...listGenre], 1)),
-    amountComments: getRandomNumberInRange(1, 1000),
-    comments: [
-      {
-        text: getRandomStringOutOfArray([
-          `Interesting setting and a good cast`,
-          `Booooooooooring`,
-          `Very very old. Meh`,
-          `Almost two hours? Seriously?`
-        ], 1),
-        emoji: getRandomStringOutOfArray([
-          `./images/emoji/smile.png`,
-          `./images/emoji/sleeping.png`,
-          `./images/emoji/puke.png`,
-          `./images/emoji/angry.png`
-        ], 1),
-        author: getRandomStringOutOfArray([
-          `John Doe`,
-          `Tim Macoveev`
-        ], 1),
-        dateDays: getRandomStringOutOfArray([
-          `3`,
-          `2`,
-          `Today`
-        ], 1),
-      },
-    ]
-  };
+const RELEASE_DATE = [
+  `1920`,
+  `1976`,
+  `1929`,
+  `1989`,
+  `1999`,
+  `1976`,
+  `1965`,
+  `1954`,
+  `1943`
+];
+
+const getComment = () => ({
+  comment: getRandomArrayElement(COMMENTS),
+  author: getRandomArrayElement(WRITERS),
+  date: new Date(Date.now()).getDay(),
+  emoji: getRandomArrayElement(EMOJIS),
+});
+
+const getComments = (count) => {
+  return new Array(count).fill(``).map(getComment);
 };
 
-export const getMocksProfile = () => {
-  return {
-    profile: `Movie Buff`
-  };
+const getRandomDescription = (descriptions, count = 1) => {
+  const radnomDescriptions = [];
+
+  for (let i = 0; i < count; i++) {
+    radnomDescriptions.push(getRandomArrayElement(descriptions));
+  }
+
+  return radnomDescriptions;
 };
+
+const generateMovieMock = () => ({
+  image: getRandomArrayElement(IMAGES),
+  title: getRandomArrayElement(TITLES),
+  originalTitle: getRandomArrayElement(TITLES),
+  rating: getRandomNumberInRange(0, 10).toFixed(1),
+  director: getRandomArrayElement(DIRECTORS),
+  writers: [...WRITERS],
+  actors: [...ACTORS],
+  releaseDate: getRandomArrayElement(RELEASE_DATE),
+  runtime: getRandomNumberInRange(100, 180),
+  country: getRandomArrayElement(COUNTRIES),
+  genres: [...LIST_GENRE],
+  description: getRandomDescription(DESCRIPTIONS, getRandomNumberInRange(1, 3)),
+  age: getRandomNumberInRange(6, 18),
+  isFavorite: getRandomBoolean(),
+  isWatched: getRandomBoolean(),
+  isInWatchlist: getRandomBoolean(),
+  comments: getComments(getRandomNumberInRange(0, 50)),
+});
+
+export const getMovies = (count) => new Array(count).fill(``).map(generateMovieMock);
