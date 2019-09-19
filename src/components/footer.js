@@ -1,8 +1,9 @@
 import {createElement} from '../utils/utils';
 
-export default class ShowMoreButton {
-  constructor() {
+export default class FooterCounter {
+  constructor(count) {
     this._element = null;
+    this._count = count;
   }
 
   getElement() {
@@ -17,9 +18,14 @@ export default class ShowMoreButton {
     this._element = null;
   }
 
-  static getTemplate() {
+  getTemplate() {
     return `
-      <button class="films-list__show-more">Show more</button>
+    <section class="footer__statistics">
+      <p>
+        <span class="footer__counter">${this._count}</span>
+        movies inside
+      </p>
+    </section>
     `.trim();
   }
 }
