@@ -46,9 +46,9 @@ export default class CardFilm {
         <p class="film-card__description">${this._description}</p>
         <a class="film-card__comments">${this._comments.length} comments</a>
         <form class="film-card__controls">
-          <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist film-card__controls-item--">Add to watchlist</button>
-          <button class="film-card__controls-item button film-card__controls-item--mark-as-watched film-card__controls-item--">Mark as watched</button>
-          <button class="film-card__controls-item button film-card__controls-item--favorite film-card__controls-item--">Mark as favorite</button>
+          <button type="button" class="film-card__controls-item button film-card__controls-item--add-to-watchlist film-card__controls-item--">Add to watchlist</button>
+          <button type="button" class="film-card__controls-item button film-card__controls-item--mark-as-watched film-card__controls-item--">Mark as watched</button>
+          <button type="button" class="film-card__controls-item button film-card__controls-item--favorite film-card__controls-item--">Mark as favorite</button>
         </form>
       </article>
     `.trim();
