@@ -1,21 +1,9 @@
-import {createElement} from '../utils/utils';
+import AbstractComponent from './abstract-component';
 
-export default class Navigation {
+export default class Navigation extends AbstractComponent {
   constructor(filters) {
-    this._element = null;
+    super();
     this._filters = filters;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 
   getTemplate() {

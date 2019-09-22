@@ -1,8 +1,8 @@
-import {createElement} from '../utils/utils';
+import AbstractComponent from './abstract-component';
 
-export default class CardFilm {
+export default class CardFilm extends AbstractComponent {
   constructor({title, rating, releaseDate, runtime, genres, image, description, comments, isFavorite, isWatched, isInWatchlist}) {
-    this._element = null;
+    super();
     this._title = title;
     this._rating = rating;
     this._releaseDate = releaseDate;
@@ -14,18 +14,6 @@ export default class CardFilm {
     this._isFavorite = isFavorite;
     this._isWatched = isWatched;
     this._isInWatchlist = isInWatchlist;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 
   getTemplate() {
