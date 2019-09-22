@@ -5,6 +5,7 @@ import Profile from './components/profile';
 import CardFilm from './components/card-film';
 import CardFilms from './components/card-films';
 import FooterCounter from './components/footer';
+import NoFilms from './components/no-films';
 import {getFilterCount} from './components/filter';
 import {getMovies} from './mocks/data';
 import {
@@ -13,9 +14,10 @@ import {
   sortByComments,
   sortByRating,
   deleteRenderElement,
+  isEscKeyDown
 } from './utils/utils';
 
-const filmsAmount = 27;
+const filmsAmount = 8;
 const filmsArray = getMovies(filmsAmount);
 const AMOUNT_CARDS_WATCH_LIST_START = 5;
 
@@ -57,6 +59,7 @@ const renderFilms = (films) => {
   films.forEach((film) => {
     const movieInstance = new CardFilm(film);
     const movieDetailsInstance = new Popup(film);
+    const onFilmPopUpEscPress = (evt) => isEscKeyDown(evt, closeFilmPopup);
 
     const closeFilmPopup = () => {
       mainElement.removeChild(movieDetailsInstance.getElement());
@@ -64,6 +67,7 @@ const renderFilms = (films) => {
 
     const openFilmPopup = () => {
       mainElement.appendChild(movieDetailsInstance.getElement());
+      document.addEventListener(`keydown`, onFilmPopUpEscPress);
     };
 
     movieInstance.getElement()
@@ -73,6 +77,16 @@ const renderFilms = (films) => {
       .querySelector(`.film-details__close-btn`)
       .addEventListener(`click`, closeFilmPopup);
 
+    movieDetailsInstance.getElement().querySelector(`textarea`)
+      .addEventListener(`focus`, () => {
+        document.removeEventListener(`keydown`, onFilmPopUpEscPress);
+      });
+
+    movieDetailsInstance.getElement().querySelector(`textarea`)
+      .addEventListener(`blur`, () => {
+        document.addEventListener(`keydown`, onFilmPopUpEscPress);
+      });
+
     fragment.appendChild(movieInstance.getElement());
   });
 
@@ -80,11 +94,37 @@ const renderFilms = (films) => {
 };
 
 const renderBoard = (films) => {
-  cardListWrapper.appendChild(renderFilms(films.slice(0, AMOUNT_CARDS_WATCH_LIST_START)));
-  cardListMostCommentWrapper.appendChild(renderFilms(CardFilms.getSortingArray(films, sortByComments)));
-  cardListTopRatedWrapper.appendChild(renderFilms(CardFilms.getSortingArray(films, sortByRating)));
+  if (films.length === 0) {
+    const noFIlmsInstance = new NoFilms();
+    renderElement(mainElement, noFIlmsInstance.getElement(), Position.BEFOREEND);
+  } else {
+    cardListWrapper.appendChild(renderFilms(films.slice(0, AMOUNT_CARDS_WATCH_LIST_START)));
+    cardListMostCommentWrapper.appendChild(renderFilms(CardFilms.getSortingArray(films, sortByComments)));
+    cardListTopRatedWrapper.appendChild(renderFilms(CardFilms.getSortingArray(films, sortByRating)));
+    renderElement(mainElement, board, Position.BEFOREEND);
 
-  renderElement(mainElement, board, Position.BEFOREEND);
+    const loadMoreButton = mainElement.querySelector(`.films-list__show-more`);
+
+    let CARDS_FILMS_PAGE = 5;
+    let AMOUNT_FILMS_TO_RENDER = filmsArray.length - CARDS_FILMS_PAGE;
+
+    const renderRestFilms = () => {
+      cardListWrapper.appendChild(renderFilms(filmsArray.slice(CARDS_FILMS_PAGE, (CARDS_FILMS_PAGE + AMOUNT_CARDS_WATCH_LIST_START))));
+
+      CARDS_FILMS_PAGE = CARDS_FILMS_PAGE + AMOUNT_CARDS_WATCH_LIST_START;
+      AMOUNT_FILMS_TO_RENDER = filmsArray.length - CARDS_FILMS_PAGE;
+
+      if (AMOUNT_FILMS_TO_RENDER <= 0) {
+        deleteRenderElement(loadMoreButton);
+      }
+    };
+
+    const onLoadMoreButtonClick = () => {
+      renderRestFilms();
+    };
+
+    loadMoreButton.addEventListener(`click`, onLoadMoreButtonClick);
+  }
 
   let amountFilmsMostCommented = CardFilms.getSortingArray(films, sortByComments).length;
   let amountFilmsTopRated = CardFilms.getSortingArray(films, sortByRating).length;
@@ -95,25 +135,3 @@ renderSearch();
 renderProfile(filmsArray);
 renderNavigation(getFilterCount(filmsArray));
 renderBoard(filmsArray);
-
-const loadMoreButton = mainElement.querySelector(`.films-list__show-more`);
-
-let CARDS_FILMS_PAGE = 5;
-let AMOUNT_FILMS_TO_RENDER = filmsArray.length - CARDS_FILMS_PAGE;
-
-const renderRestFilms = () => {
-  cardListWrapper.appendChild(renderFilms(filmsArray.slice(CARDS_FILMS_PAGE, (CARDS_FILMS_PAGE + AMOUNT_CARDS_WATCH_LIST_START))));
-
-  CARDS_FILMS_PAGE = CARDS_FILMS_PAGE + AMOUNT_CARDS_WATCH_LIST_START;
-  AMOUNT_FILMS_TO_RENDER = filmsArray.length - CARDS_FILMS_PAGE;
-
-  if (AMOUNT_FILMS_TO_RENDER <= 0) {
-    deleteRenderElement(loadMoreButton);
-  }
-};
-
-const onLoadMoreButtonClick = () => {
-  renderRestFilms();
-};
-
-loadMoreButton.addEventListener(`click`, onLoadMoreButtonClick);
