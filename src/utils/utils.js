@@ -48,6 +48,12 @@ const deleteRenderElement = (element) => {
   }
 };
 
+const isEscKeyDown = (evt, action) => {
+  if (evt.key === `Escape` || evt.key === `Esc`) {
+    action();
+  }
+};
+
 const sortByComments = (a, b) => a.comments.length - b.comments.length;
 
 const sortByRating = (a, b) => a.rating - b.rating;
@@ -64,4 +70,5 @@ export {
   createElement,
   deleteRenderElement,
   Position,
+  isEscKeyDown
 };
