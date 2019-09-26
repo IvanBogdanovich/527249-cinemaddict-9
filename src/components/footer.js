@@ -1,21 +1,9 @@
-import {createElement} from '../utils/utils';
+import AbstractComponent from './abstract-component';
 
-export default class FooterCounter {
+export default class FooterCounter extends AbstractComponent {
   constructor(count) {
-    this._element = null;
+    super();
     this._count = count;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 
   getTemplate() {

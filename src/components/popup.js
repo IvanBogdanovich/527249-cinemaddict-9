@@ -1,9 +1,10 @@
-import {getMovieFullDate, createElement} from '../utils/utils';
+import AbstractComponent from './abstract-component';
 import CardFilm from './card-film';
+import {getMovieFullDate} from '../utils/utils';
 
-export default class Popup {
+export default class Popup extends AbstractComponent {
   constructor({title, rating, releaseDate, director, writers, genres, actors, age, originalTitle, country, isFavorite, isWatched, isInWatchlist, runtime, image, description, comments}) {
-    this._element = null;
+    super();
     this._title = title;
     this._rating = rating;
     this._director = director;
@@ -21,18 +22,6 @@ export default class Popup {
     this._isFavorite = isFavorite;
     this._isWatched = isWatched;
     this._isInWatchlist = isInWatchlist;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 
   getTemplate() {

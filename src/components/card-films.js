@@ -1,22 +1,9 @@
-import ShowMoreButton from './show-more';
-import {createElement} from '../utils/utils';
+import AbstractComponent from './abstract-component';
 
-export default class CardFilms {
+export default class CardFilms extends AbstractComponent {
   constructor(films) {
-    this._element = null;
+    super();
     this._films = films;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 
   getTemplate() {
@@ -26,29 +13,20 @@ export default class CardFilms {
           <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
 
           <div class="films-list__container"></div>
-
-           ${ShowMoreButton.getTemplate()}
         </section>
 
         <section class="films-list--extra">
           <h2 class="films-list__title">Top rated</h2>
 
-          <div class="films-list__container"></div>
+          <div class="films-list__container films-list__container--rated"></div>
         </section>
 
         <section class="films-list--extra">
           <h2 class="films-list__title">Most commented</h2>
 
-          <div class="films-list__container"></div>
+          <div class="films-list__container films-list__container--commented"></div>
         </section>
       </section>
     `.trim();
-  }
-
-  static getSortingArray(films, compareFunction, count = 2) {
-    const filmsCopy = [...films];
-    filmsCopy.sort(compareFunction);
-
-    return filmsCopy.slice(-count);
   }
 }

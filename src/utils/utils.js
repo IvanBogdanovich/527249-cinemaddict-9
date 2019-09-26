@@ -14,11 +14,9 @@ const getRandomBoolean = () => {
   return Boolean(Math.round(Math.random()));
 };
 
-const renderComponent = (container, component) => {
-  return container.insertAdjacentHTML(`beforeend`, component);
+const getRandomNumberInRange = (min, max) => {
+  return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) + Math.ceil(min);
 };
-
-const getRandomNumberInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 const Position = {
   AFTERBEGIN: `afterbegin`,
@@ -31,7 +29,7 @@ const createElement = (template) => {
   return newElement.firstChild;
 };
 
-const renderElement = (container, element, place) => {
+const renderElement = (container, element, place = Position.BEFOREEND) => {
   switch (place) {
     case Position.AFTERBEGIN:
       container.prepend(element);
@@ -40,6 +38,10 @@ const renderElement = (container, element, place) => {
       container.append(element);
       break;
   }
+};
+
+const isChecked = (state) => {
+  return state ? `checked` : ``;
 };
 
 const deleteRenderElement = (element) => {
@@ -54,21 +56,46 @@ const isEscKeyDown = (evt, action) => {
   }
 };
 
-const sortByComments = (a, b) => a.comments.length - b.comments.length;
+const sortByComments = (films) => films.slice().sort((a, b) => b.comments.length - a.comments.length);
+const sortByRating = (films) => films.slice().sort((a, b) => b.rating - a.rating);
+const sortByDate = (films) => films.slice().sort((a, b) => a.releaseDate - b.releaseDate);
+const defaultSort = (films) => films;
 
-const sortByRating = (a, b) => a.rating - b.rating;
+const compareTypeToSortFunction = {
+  default: defaultSort,
+  date: sortByDate,
+  comments: sortByComments,
+  rating: sortByRating,
+};
+
+const sortFilms = (films, compareType) => compareTypeToSortFunction[compareType](films);
+
+const formatFilmDuration = (duration) => {
+  const UNITS = {
+    MINUTES_IN_HOUR: 60,
+  };
+  const hours = duration / UNITS.MINUTES_IN_HOUR;
+  const roundedHours = Math.floor(hours);
+  const roundedMinutes = Math.round((hours - roundedHours) * UNITS.MINUTES_IN_HOUR);
+
+  return `${roundedHours}h ${roundedMinutes}m`;
+};
 
 export {
   getRandomBoolean,
   getRandomArrayElement,
   getMovieFullDate,
   sortByComments,
+  sortByDate,
+  defaultSort,
   sortByRating,
-  renderComponent,
   getRandomNumberInRange,
+  sortFilms,
   renderElement,
   createElement,
+  isEscKeyDown,
+  formatFilmDuration,
   deleteRenderElement,
+  isChecked,
   Position,
-  isEscKeyDown
 };
