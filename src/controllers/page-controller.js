@@ -3,7 +3,7 @@ import Navigation from '../components/navigation';
 import Popup from '../components/popup';
 import Profile from '../components/profile';
 import CardFilm from '../components/card-film';
-import CardFilms from '../components/card-films';
+import CardFilms from '../components/card-films-list';
 import Sort from '../components/sort';
 import NoFilms from '../components/no-films';
 import ShowMoreButton from '../components/show-more';
